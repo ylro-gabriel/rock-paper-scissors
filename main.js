@@ -15,3 +15,12 @@ function getComputerChoice(){
 
 console.log(getComputerChoice());
 
+// make a function getHumanChoice that will 
+// prompt user to input a case senstive choice
+
+function getHumanChoice(){
+    x = prompt("Choose: rock, paper, scissors?");
+    return x;
+}
+
+console.log(getHumanChoice()); 
