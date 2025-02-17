@@ -24,3 +24,9 @@ function getHumanChoice(){
 }
 
 console.log(getHumanChoice()); 
+
+// make scores for each functions and set their
+// values to 0
+
+let computerScore = 0;
+let humanScore = 0;
