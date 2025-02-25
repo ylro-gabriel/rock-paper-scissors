@@ -2,11 +2,10 @@
 //randomly return "rock", "paper" or "scissors"
 
 function getComputerChoice(){
-    x = Math.random() * (3 - 0) + 0;
-
-    if(x <= 1){
+    let x = Math.floor(Math.random()*3); // random number from 0 to 2
+    if (x === 0) {
         return "rock";
-    } else if (x <= 2){
+    } else if (x === 1) {
         return "paper";
     } else {
         return "scissors";
@@ -19,8 +18,17 @@ function getComputerChoice(){
 // prompt user to input a case senstive choice
 
 function getHumanChoice(){
-    x = prompt("Choose: rock, paper, scissors?");
-    return x.toLowerCase();
+   let x = prompt("Choose: rock, paper, scissors?");
+
+   if (x === null){
+    return "Invalid choice";
+   }
+
+   if (x !== "rock" && x !== "paper" && x !== "scissors"){
+    return "Invalid choice";
+   }
+
+   return x;
 }
 
 
@@ -36,31 +44,52 @@ let humanScore = 0;
 // add a point to the winner of the round
 
 function playRound(human, computer){
-    human = getHumanChoice();
-    computer = getComputerChoice();
+    if (human === "Invalid choice"){
+        console.log("Please enter rock, paper, or scissors")
+        return;
+    }
 
-    if(human == "rock" && computer == "paper"){
-        return computerScore++;
-    } else if(human == "rock" && computer == "scissors"){
-        return humanScore++;
-    } else if(human == "paper" && computer == "rock"){
-        return humanScore++;
-    } else if(human == "paper" && computer == "scissors"){
-        return computerScore++;
-    } else if(human == "scissors" && computer == "rock"){
-        return computerScore++;
-    } else if(human == "scissors" && computer == "paper"){
-        return humanScore++;
-    }   else{
-        return "Draw";
-    } 
+    if (human === computer){
+        console.log("It's a draw!");
+        return;
+    }
+
+    if(
+        (human === "rock" && computer === "scissors") ||
+        (human === "paper" && computer === "rock") ||
+        (human === "scissors" && computer === "paper")
+    ){
+        humanScore++;
+        console.log(`You win! ${human} beats ${computer}.`)
+    } else {
+        computerScore++;
+        console.log(`You lose! ${computer} beats ${human}.`)
+    }
 }
 
-// make a function that cllas playRound 5 times
+
+
+// make a function that class playRound 5 times
 //
 
-function playGame(){
-    
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        let human = getHumanChoice();
+        let computer = getComputerChoice();
+
+        playRound(human, computer);
+        console.log(`Score: Human ${humanScore} - ${computerScore} Computer\n`);
+    }
+
+    // Announce the final winner
+    if (humanScore > computerScore) {
+        console.log("Congratulations! You won the game!");
+    } else if (humanScore < computerScore) {
+        console.log("You lost the game. Better luck next time!");
+    } else {
+        console.log("It's a tie overall!");
+    }
 }
 
+// Start the game
 playGame();
